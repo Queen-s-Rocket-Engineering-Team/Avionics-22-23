@@ -1,0 +1,24 @@
+name: Verifier_Action
+on: 
+  pull_request_target:
+    types:
+      - opened
+      - synchronize
+      - reopened
+    branches:    
+      - 'main'
+
+jobs:
+  job1:
+    name: Verified_By_Admin
+    runs-on: ubuntu-latest
+    env:
+      NAME_ADMIN_A: kenneract
+      NAME_ADMIN_B: sagalovitch
+    steps:
+      - name: st1
+        if: ${{ github.actor != env.NAME_ADMIN_A && github.actor != env.NAME_ADMIN_B }}
+        run: exit 1
+      - name: st2
+        if: ${{ github.actor != env.NAME_ADMIN_A || github.actor != env.NAME_ADMIN_B }}
+        run: echo "pass"
