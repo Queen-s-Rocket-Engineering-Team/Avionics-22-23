@@ -179,7 +179,7 @@ void pollPressureSensor() {
   ms5607Sensor.Readout();
   cachedTemp = ms5607Sensor.GetTemp();
   cachedPres = ms5607Sensor.GetPres();
-}//pollPressureSensor
+}//pollPressureSensor()
 
 /*
  * Returns current temperature in
@@ -235,6 +235,8 @@ void setup() {
   // Configure I2C
   Wire.setSCL(SCL_PIN);
   Wire.setSDA(SDA_PIN);
+  // Configure MS5607 oversampling rate
+  ms5607Sensor.setOversampling(MS5xxx_CMD_ADC_1024);
   // Connect to MS5607 Pressure Sensor
   while (ms5607Sensor.connect() > 0) {
     Serial.println(F("Connecting to MS5607..."));
